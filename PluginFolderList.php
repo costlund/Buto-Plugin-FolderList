@@ -19,8 +19,23 @@ class PluginFolderList{
     /**
      * 
      */
-    $widget = new PluginWfYml(__DIR__.'/widget/folder.yml');
-    $widget->setByTag($data->get('data'));
+    if(!$data->get('data/tree')){
+      /**
+       * List
+       */
+      $widget = new PluginWfYml(__DIR__.'/widget/folder.yml');
+      $widget->setByTag($data->get('data'));
+    }else{
+      /**
+       * Tree
+       */
+      $data = $this->set_data_tree($data);
+      $widget = new PluginWfYml(__DIR__.'/widget/tree.yml');
+      $widget->setByTag(array('tree_element' => $data->get('data/tree_element')));
+    }
+    /**
+     * 
+     */
     wfDocument::renderElement($widget->get());
   }
   public function widget_download($data){
@@ -74,6 +89,7 @@ class PluginFolderList{
       $name = '<a href="'.$href.'" target="_blank">'.$value.'</a>';
       $files2[$value] = array(
           'name' => $name,
+          'href' => $href,
           'size' => round(filesize($root_dir.$data->get('data/path').'/'.$value) / 1000, 2).' kb', 
           'created_at' => date('Y-m-d H:i:s', filemtime($root_dir.$data->get('data/path').'/'.$value)), 
           'type' => $type
@@ -82,4 +98,24 @@ class PluginFolderList{
     $data->set('data/files', $files2);
     return $data;
   }
+  private function set_data_tree($data){
+    function get_tree_name($k){
+      $v = substr($k, strrpos($k, '_'));
+      $v = substr($v, 0,  strrpos($v, '.'));
+      $v = str_replace('_', '', $v);
+      return $v;
+    }
+    $margin = 20;
+    $element = array();
+    foreach( $data->get('data/files') as $k => $v ){
+      $margin_left = $margin * substr_count($k, '_');
+      $element[] = wfDocument::createHtmlElement('a', get_tree_name($k), array(
+        'href' => $data->get("data/files/$k/href"),
+        'target' => '_blank',
+        'style' => "margin-left:".$margin_left."px;display:block"
+      ));
+    }
+    $data->set('data/tree_element', $element);
+    return $data;
+ }
 }

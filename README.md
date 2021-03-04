@@ -40,3 +40,23 @@ name:
   - '*.png'
   - '*.pdf'
 ```
+
+### Tree view
+Add this param to display tree view instead of a list.
+```
+tree: true
+```
+Files must be named like this. Separator is underscore (_).
+```
+One.pdf
+One_One.pdf
+One_Two.pdf
+One_Two_One.pdf
+```
+The tree will look like this.
+```
+One
+  One
+  Two
+    One
+```
