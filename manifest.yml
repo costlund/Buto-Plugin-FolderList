@@ -1,5 +1,9 @@
-version: 1.1.0
+version: 1.2.0
 history:
+  1.2.0:
+    date: '2021-03-04'
+    title: 'Sort value'
+    description: 'By adding prefixed sort value ended with an @ one could arrange files.'
   1.1.0:
     date: '2021-03-04'
     title: 'Tree view'

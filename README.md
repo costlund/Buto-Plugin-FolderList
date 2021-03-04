@@ -60,3 +60,15 @@ One
   Two
     One
 ```
+
+#### Sort
+By adding prefixed sort value ended with an @ one could arrange files. Sort value including @ will not be shown.
+```
+010000@Two.pdf
+020000@One.pdf
+```
+Result.
+```
+Two.pdf
+One.pdf
+```

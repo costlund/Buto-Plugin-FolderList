@@ -100,9 +100,27 @@ class PluginFolderList{
   }
   private function set_data_tree($data){
     function get_tree_name($k){
+      /**
+       * After last underscore.
+       */
       $v = substr($k, strrpos($k, '_'));
+      /**
+       * Remove file extension.
+       */
       $v = substr($v, 0,  strrpos($v, '.'));
+      /**
+       * Replace underscore (if any).
+       */
       $v = str_replace('_', '', $v);
+      /**
+       * Remove sort prefix.
+       */
+      if(strpos($v, '@')){
+        $v = substr($v, strpos($v, '@')+1);
+      }
+      /**
+       * 
+       */
       return $v;
     }
     $margin = 20;
