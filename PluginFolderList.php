@@ -123,10 +123,18 @@ class PluginFolderList{
        */
       return $v;
     }
+    wfPlugin::includeonce('string/array');
+    $plugin = new PluginStringArray();
     $margin = 20;
     $element = array();
     foreach( $data->get('data/files') as $k => $v ){
-      $margin_left = $margin * substr_count($k, '_');
+      $tree_level = 0;
+      $temp = substr($k, 0, strpos($k, '@'));
+      $temp = new PluginWfArray($plugin->from_char($temp, '_'));
+      if(is_numeric($temp->get('1'))){
+        $tree_level = $temp->get('1');
+      }
+      $margin_left = $margin * $tree_level;
       $element[] = wfDocument::createHtmlElement('a', get_tree_name($k), array(
         'href' => $data->get("data/files/$k/href"),
         'target' => '_blank',
@@ -135,5 +143,9 @@ class PluginFolderList{
     }
     $data->set('data/tree_element', $element);
     return $data;
- }
+  }
+  public function widget_tree_instructions(){
+    $widget = new PluginWfYml(__DIR__.'/widget/tree_instructions.yml');
+    wfDocument::renderElement($widget->get());
+  }
 }

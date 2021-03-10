@@ -1,0 +1,16 @@
+
+
+-
+  type: div
+  attribute:
+    class: alert alert-info
+  innerHTML: 
+    -
+      type: p
+      innerHTML: 
+        -
+          type: strong
+          innerHTML: Tree view instructions
+    -
+      type: span
+      innerHTML: 'Name files like this: (sort value)_(tree level)@Filename.pdf.'
