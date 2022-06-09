@@ -1,5 +1,9 @@
-version: 1.3.10
+version: 1.3.11
 history:
+  1.3.11:
+    date: '2022-06-09'
+    title: I18N
+    description: 'Remove json file param due to it will be automatic set.'
   1.3.10:
     date: '2022-06-09'
     title: Versions
