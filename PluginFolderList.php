@@ -44,7 +44,7 @@ class PluginFolderList{
     /**
      * 
      */
-    if(strstr(wfRequest::get('file'), '../')){
+    if(wfPhpfunc::strstr(wfRequest::get('file'), '../')){
       throw new Exception(__CLASS__.' says: Param file error ('.wfRequest::get('file').')!');
     }
     /**
@@ -103,20 +103,20 @@ class PluginFolderList{
       /**
        * After last underscore.
        */
-      $v = substr($k, strrpos($k, '_'));
+      $v = wfPhpfunc::substr($k, strrpos($k, '_'));
       /**
        * Remove file extension.
        */
-      $v = substr($v, 0,  strrpos($v, '.'));
+      $v = wfPhpfunc::substr($v, 0,  strrpos($v, '.'));
       /**
        * Replace underscore (if any).
        */
-      $v = str_replace('_', '', $v);
+      $v = wfPhpfunc::str_replace('_', '', $v);
       /**
        * Remove sort prefix.
        */
       if(strpos($v, '@')){
-        $v = substr($v, strpos($v, '@')+1);
+        $v = wfPhpfunc::substr($v, strpos($v, '@')+1);
       }
       /**
        * 
@@ -129,7 +129,7 @@ class PluginFolderList{
     $element = array();
     foreach( $data->get('data/files') as $k => $v ){
       $tree_level = 0;
-      $temp = substr($k, 0, strpos($k, '@'));
+      $temp = wfPhpfunc::substr($k, 0, strpos($k, '@'));
       $temp = new PluginWfArray($plugin->from_char($temp, '_'));
       if(is_numeric($temp->get('1'))){
         $tree_level = $temp->get('1');
